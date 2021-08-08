@@ -14,10 +14,12 @@ import (
 
 func main() {
 	http.HandleFunc("/ws", serveWs)
-	err := http.ListenAndServe(":8010", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	go func() {
+		err := http.ListenAndServe(":8010", nil)
+		if err != nil {
+			log.Fatal("ListenAndServe: ", err)
+		}
+	}()
 }
 
 var upgrader = websocket.Upgrader{
